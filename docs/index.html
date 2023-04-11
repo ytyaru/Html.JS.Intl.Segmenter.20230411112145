@@ -9,11 +9,18 @@
 <link rel="icon" href="asset/image/avator.png">
 <link rel="stylesheet" href="css/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="js/String.HalfWidthLength.js"></script>
 <script src="js/main.js"></script>
 </head>
 <body>
 <h1>Intl.Segmenterで日本語を正しく分割して数える</h1>
 <textarea id="editor" style="width:100%;" placeholder="数えたいテキストを入力してください。">吾輩は猫である。名前はたぬき。👨‍👩‍👧‍👦</textarea>
+<table>
+<tr><th>半角幅で換算した字数</th><td><span id="half-width-length"></span></td></tr>
+<tr><th>全半角幅不問で換算した字数</th><td><span id="intl-segmenter-grapheme-length"></span></td></tr>
+</table>
+
 <table>
 <tr><th>分割方法</th><th>数</th><th>リスト</th></tr>
 <tr class="red"><th><code>str.length, [...str].map(c=>c)</code></th><td id="output-string-len"></td><td id="output-string"></td></tr>

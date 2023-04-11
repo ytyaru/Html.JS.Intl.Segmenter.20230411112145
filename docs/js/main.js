@@ -8,6 +8,8 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     //const segS = new Intl.Segmenter('ja-JP', { granularity: 'sentence' });
     //console.log(str.length, [...str].map(c=>c))
     EDITOR.addEventListener('input', async(e) => {
+        document.getElementById(`half-width-length`).textContent = e.target.value.HalfWidthLength()
+        document.getElementById(`intl-segmenter-grapheme-length`).textContent = Array.from(segmenters.get('grapheme').segment(e.target.value)).length 
         document.getElementById(`output-string-len`).textContent = e.target.value.length 
         document.getElementById(`output-string`).textContent = [...e.target.value].map(c=>c).toString()
         for (let id of SEG_IDS) {
