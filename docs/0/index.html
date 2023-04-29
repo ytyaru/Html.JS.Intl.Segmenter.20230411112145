@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="description" content="">
+<meta name="author" content="ytyaru">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.ja">
+<link rel="icon" href="asset/image/avator.png">
+<link rel="stylesheet" href="css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="js/String.HalfWidthLength.js"></script>
+<script src="js/main.js"></script>
+</head>
+<body>
+<h1>Intl.Segmenterで日本語を正しく分割して数える</h1>
+<textarea id="editor" style="width:100%;" placeholder="数えたいテキストを入力してください。">吾輩は猫である。名前はたぬき。👨‍👩‍👧‍👦</textarea>
+<table>
+<tr><th>半角幅で換算した字数</th><td><span id="half-width-length"></span></td></tr>
+<tr><th>全半角幅不問で換算した字数</th><td><span id="intl-segmenter-grapheme-length"></span></td></tr>
+</table>
+
+<table>
+<tr><th>分割方法</th><th>数</th><th>リスト</th></tr>
+<tr class="red"><th><code>str.length, [...str].map(c=>c)</code></th><td id="output-string-len"></td><td id="output-string"></td></tr>
+<tr class="green"><th><code>Intl.Segmenter grapheme</code></th><td id="output-grapheme-len"></td><td id="output-grapheme"></td></tr>
+<tr class="green"><th><code>Intl.Segmenter word</code></th><td id="output-word-len"></td><td id="output-word"></td></tr>
+<tr class="green"><th><code>Intl.Segmenter sentence</code></th><td id="output-sentence-len"></td><td id="output-sentence"></td></tr>
+</table>
+<section><h2>情報源</h2>
+<ul>
+<li><a href="https://qiita.com/yoya/items/5da038312279f98bdd28">JavaScript textLength as halfWidth (半角としてのテキスト幅)</a>
+<li><a href="https://blog.jxck.io/entries/2017-03-02/unicode-in-javascript.html">JavaScript における文字コードと「文字数」の数え方</a>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter">Intl.Segmenter</a>
+</ul>
+</section>
+<section><h2>動機・解法</h2>
+<p>JavaScriptで文字列の数を正しく取得したい。<code>Intl.Segmenter</code>を使う。</p>
+<pre><code>const segG = new Intl.Segmenter('ja-JP', { granularity: 'grapheme' });
+const segments = Array.from(segG.segment(str));
+console.log(segments.length, segments.map(s=>s.segment))
+</code></pre>
+<p>区切る単位ごとに<code>granularity</code>の値を変える。</p>
+<table>
+<tr><th>区切単位</th><th>引数</th></tr>
+<tr><td>文字</td><td><code>grapheme</code></td></tr>
+<tr><td>単語</td><td><code>word</code></td></tr>
+<tr><td>文</td><td><code>sentence</code></td></tr>
+</table>
+</section>
+
+    <footer>
+        <span><a href="https://ytyaru.github.io/"><img class="icon" src="asset/image/avator.png"></img>ytyaru</a> 2023 </span>
+        <a title="CC-BY-SA" \
+           href="https://creativecommons.org/licenses/by-sa/4.0/deed.ja"
+           style="text-decoration: none;">
+            <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Cc.logo.circle.svg"></img>
+            <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Cc-by_new.svg"></img>
+            <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/2/29/Cc-sa.svg"></img>
+            <!--<img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/CC-BY-SA_icon.svg"></img>-->
+    </a></footer>
+</body>
+</html>
+<!-- https://coliss.com/articles/build-websites/operation/work/html-template-for-web-apps-or-sites.html -->
+<!-- https://coliss.com/articles/build-websites/operation/work/html5-template-for-2018.html -->
